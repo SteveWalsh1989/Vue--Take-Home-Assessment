@@ -1,5 +1,8 @@
 <script setup>
-import SwapAPI from '@/views/SwapAPI.vue';
+import { provideSwapAPI } from '@/composables/useSwapAPI';
+import SwapAPI from '@/views/SwapAPI';
+
+provideSwapAPI();
 </script>
 
 <template>

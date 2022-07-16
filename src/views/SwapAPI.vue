@@ -7,7 +7,10 @@ import Footer from '@/components/Footer.vue';
 <template>
   <section>
     <Header />
-    <Table />
+    <Suspense>
+      <Table />
+      <template #fallback> Loading... </template>
+    </Suspense>
     <Footer />
   </section>
 </template>

@@ -66,7 +66,12 @@ function getTableData(row) {
 </template>
 
 <style scoped>
+.row {
+  color: #1e293b;
+}
 .row:hover {
   background-color: #f1f5f9;
+  box-shadow: 0 6px 30px -6px rgba(0, 0, 0, 0.25);
+  color: black;
 }
 </style>

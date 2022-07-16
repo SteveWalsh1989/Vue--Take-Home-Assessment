@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useCurrentSwapAPI } from '@/composables/useSwapAPI';
+import { extractPlanetId } from '@/utils/helpers';
 import DateCell from '@/components/DateCell';
 import PlainCell from '@/components/PlainCell';
 import PlanetCell from '@/components/PlanetCell';
@@ -16,13 +17,6 @@ const columns = ref([
   { label: 'Edited', value: 'edited', sort: null },
   { label: 'Planet', value: 'planet', sort: null },
 ]);
-
-function getplanetId(url) {
-  const res = url.slice(0, -1);
-  const strs = res.split('/');
-  const id = strs.at(-1);
-  return id;
-}
 
 // FUNCTIONS
 function getTableData(row) {
@@ -62,7 +56,7 @@ function getTableData(row) {
           />
           <PlanetCell
             v-else-if="td.column === 'planet'"
-            :planet="data.planets.data[getplanetId(person.homeworld)]"
+            :planet="data.planets.data[extractPlanetId(person.homeworld)]"
           />
           <PlainCell v-else :text="td.value" />
         </td>

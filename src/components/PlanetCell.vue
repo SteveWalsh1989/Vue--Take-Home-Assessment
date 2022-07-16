@@ -1,22 +1,35 @@
 <script setup>
 import { defineProps } from 'vue';
+import { capitalize, formatPopulation } from '@/utils/helpers';
 const props = defineProps({
   planet: { type: Object, default: () => null },
 });
-
-const planetName = props.planet ? props.planet.name : 'Unknown';
+const formattedPlanet = {
+  name: props.planet ? props.planet.name : 'Unknown',
+  population: props.planet
+    ? formatPopulation(props.planet.population)
+    : 'Unknown',
+  climate: props.planet ? props.planet.climate : 'Unknown',
+  diameter: props.planet ? props.planet.diameter : 'Unknown',
+};
 </script>
 
 <template>
   <Popper>
-    <button>{{ planetName }}</button>
-    <template #content v-if="planetName !== 'Unknown'">
-      <div class="flex-col w-60 h-40 items-center z-60">
-        <span class="flex m-4">Planet: {{ planetName }}</span>
-        <span class="flex m-4">Population: {{ planet.population }}</span>
-        <span class="flex m-4">Climate: {{ planet.climate }}</span>
-        <span class="flex m-4">Diamter: {{ planet.diameter }}</span>
-      </div>
+    <button>{{ formattedPlanet.name }}</button>
+    <template #content v-if="formattedPlanet.name !== 'Unknown'">
+      <table>
+        <tbody>
+          <tr
+            v-for="(label, index) in Object.entries(formattedPlanet)"
+            :key="index"
+            class="my-8"
+          >
+            <td class="font-semibold pr-4">{{ capitalize(label[0]) }}</td>
+            <td>{{ formattedPlanet[label[0]] }}</td>
+          </tr>
+        </tbody>
+      </table>
     </template>
   </Popper>
 </template>

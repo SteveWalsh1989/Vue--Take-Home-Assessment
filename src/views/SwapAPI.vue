@@ -1,6 +1,6 @@
 <script setup>
 import Header from '@/components/Header.vue';
-import Table from '@/components/Table.vue';
+import PeopleTable from '@/components/PeopleTable.vue';
 import Footer from '@/components/Footer.vue';
 </script>
 
@@ -8,7 +8,7 @@ import Footer from '@/components/Footer.vue';
   <section>
     <Header />
     <Suspense>
-      <Table />
+      <PeopleTable />
       <template #fallback> Loading... </template>
     </Suspense>
     <Footer />

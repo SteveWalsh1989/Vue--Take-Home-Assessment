@@ -1,6 +1,6 @@
 <script setup>
 import { defineProps } from 'vue';
-import { capitalize, formatPopulation } from '@/utils/helpers';
+import { capitalize, formatDiameter, formatPopulation } from '@/utils/helpers';
 
 // CONSTANTS / VARIABLES
 const props = defineProps({
@@ -10,10 +10,12 @@ const props = defineProps({
 const formattedPlanet = {
   name: props.planet ? props.planet.name : 'Unknown',
   population: props.planet
-    ? formatPopulation(props.planet.population)
+    ? formatPopulation(parseInt(props.planet.population))
     : 'Unknown',
   climate: props.planet ? props.planet.climate : 'Unknown',
-  diameter: props.planet ? props.planet.diameter : 'Unknown',
+  diameter: props.planet
+    ? `${formatDiameter(props.planet.diameter)}km`
+    : 'Unknown',
 };
 </script>
 

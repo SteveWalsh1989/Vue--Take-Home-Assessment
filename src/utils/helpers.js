@@ -28,3 +28,10 @@ export function formatPopulation(num) {
     return Math.round(num / 1000).toFixed(0) + 'K';
   }
 }
+
+// Format the diameter to be in km/miles
+// @Param {number} num - the diameter of the planet
+// @Return {string} - the formatted diameter
+export function formatDiameter(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}

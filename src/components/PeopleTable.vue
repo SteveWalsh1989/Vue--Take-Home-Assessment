@@ -47,7 +47,7 @@ function getTableData(row) {
       <tr
         v-for="(person, i) in data.people.data"
         :key="i"
-        class="border-b-2 border-slate-400 my-4 h-12"
+        class="border-b-2 border-slate-400 my-4 h-12 row"
       >
         <td v-for="(td, i) in getTableData(person)" :key="td.value + i">
           <DateCell
@@ -64,3 +64,9 @@ function getTableData(row) {
     </tbody>
   </table>
 </template>
+
+<style scoped>
+.row:hover {
+  background-color: #f1f5f9;
+}
+</style>

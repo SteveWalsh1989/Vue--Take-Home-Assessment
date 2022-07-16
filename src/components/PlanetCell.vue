@@ -23,9 +23,10 @@ const formattedPlanet = {
           <tr
             v-for="(label, index) in Object.entries(formattedPlanet)"
             :key="index"
-            class="my-8"
           >
-            <td class="font-semibold pr-4">{{ capitalize(label[0]) }}</td>
+            <td class="font-semibold pr-4 py-1.5">
+              {{ capitalize(label[0]) }}
+            </td>
             <td>{{ formattedPlanet[label[0]] }}</td>
           </tr>
         </tbody>

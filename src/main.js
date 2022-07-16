@@ -1,6 +1,11 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import './input.css';
-import './assets/tailwind.css'
+import './assets/tailwind.css';
+import FloatingVue from 'floating-vue';
 
-createApp(App).mount('#app');
+const app = createApp(App);
+
+app.use(FloatingVue);
+
+app.mount('#app');

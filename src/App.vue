@@ -6,5 +6,5 @@ provideSwapAPI();
 </script>
 
 <template>
-  <SwapAPI />
+  <SwapAPI class="flex-col justify-center mx-4" />
 </template>

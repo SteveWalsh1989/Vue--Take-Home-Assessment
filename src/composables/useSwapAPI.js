@@ -8,8 +8,6 @@ async function useSWapAPILoader() {
     useSwapAPI('people'),
     useSwapAPI('planets'),
   ]);
-  console.log('🍕 > useSWapAPILoader > people', people);
-
   return { people, planets };
 }
 
@@ -85,8 +83,6 @@ function getUrl(slug, page) {
 
 export async function provideSwapAPI() {
   currentSwapAPI = useSWapAPILoader();
-  console.log('🍕 > provideSwapAPI > currentSwapAPI', currentSwapAPI);
-
   provide(SwapAPISymbol, currentSwapAPI);
   return currentSwapAPI;
 }

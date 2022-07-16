@@ -1,15 +1,14 @@
 <script setup>
 import { ref } from 'vue';
 import { useCurrentSwapAPI } from '@/composables/useSwapAPI';
+import DateCell from '@/components/DateCell';
 import PlainCell from '@/components/PlainCell';
 import PlanetCell from '@/components/PlanetCell';
 
 // CONSTANTS / VARIABLES
 const data = await useCurrentSwapAPI();
-console.log('🍕 > from Table.vue >  data', data);
 
 const columns = ref([
-  { label: 'Id', value: 'id' },
   { label: 'Name', value: 'name', sort: null },
   { label: 'Height (cm)', value: 'height', sort: null },
   { label: 'Mass (Kg)', value: 'mass', sort: null },
@@ -27,25 +26,22 @@ function getplanetId(url) {
 
 // FUNCTIONS
 function getTableData(row) {
-  console.log('🍕 > getTableData > row', row);
-
   return columns.value.map(({ value, sort }) => {
-    const out = {
+    const res = {
       column: value,
       sort,
       value: row[value],
     };
-
-    return out;
+    return res;
   });
 }
 </script>
 
 <template>
   <table class="w-full">
-    <thead>
+    <thead class="border-b-2 border-black">
       <tr>
-        <th v-for="th in columns" :key="th.value">
+        <th v-for="th in columns" :key="th.value" class="text-left">
           <span>{{ th.label }}</span>
         </th>
       </tr>
@@ -54,10 +50,18 @@ function getTableData(row) {
       <tr v-if="!data.people.data.length">
         Loading Data...
       </tr>
-      <tr v-for="(person, i) in data.people.data" :key="i">
+      <tr
+        v-for="(person, i) in data.people.data"
+        :key="i"
+        class="border-b-2 border-slate-400 my-4"
+      >
         <td v-for="(td, i) in getTableData(person)" :key="td.value + i">
+          <DateCell
+            v-if="td.column === 'created' || td.column === 'edited'"
+            :date="td.value"
+          />
           <PlanetCell
-            v-if="td.column === 'planet'"
+            v-else-if="td.column === 'planet'"
             :planet="data.planets.data[getplanetId(person.homeworld)]"
           />
           <PlainCell v-else :text="td.value" />

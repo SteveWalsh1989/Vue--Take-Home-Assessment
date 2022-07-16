@@ -53,7 +53,7 @@ function getTableData(row) {
       <tr
         v-for="(person, i) in data.people.data"
         :key="i"
-        class="border-b-2 border-slate-400 my-4"
+        class="border-b-2 border-slate-400 my-4 h-12"
       >
         <td v-for="(td, i) in getTableData(person)" :key="td.value + i">
           <DateCell

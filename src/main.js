@@ -2,10 +2,8 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import './input.css';
 import './assets/tailwind.css';
-import FloatingVue from 'floating-vue';
-
+import Popper from 'vue3-popper';
+import './styles/popperThemes.css';
 const app = createApp(App);
-
-app.use(FloatingVue);
-
+app.component('Popper', Popper);
 app.mount('#app');

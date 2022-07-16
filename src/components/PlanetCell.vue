@@ -8,14 +8,15 @@ const planetName = props.planet ? props.planet.name : 'Unknown';
 </script>
 
 <template>
-  <VTooltip>
+  <Popper>
     <button>{{ planetName }}</button>
-
-    <template #popper v-if="planetName" class="flex-col">
-      <div>Planet: {{ planetName }}</div>
-      <div>Population: {{ planet.population }}</div>
-      <div>Climate: {{ planet.climate }}</div>
-      <div>Diamter: {{ planet.diameter }}</div>
+    <template #content v-if="planetName !== 'Unknown'">
+      <div class="flex-col w-60 h-40 items-center z-60">
+        <span class="flex m-4">Planet: {{ planetName }}</span>
+        <span class="flex m-4">Population: {{ planet.population }}</span>
+        <span class="flex m-4">Climate: {{ planet.climate }}</span>
+        <span class="flex m-4">Diamter: {{ planet.diameter }}</span>
+      </div>
     </template>
-  </VTooltip>
+  </Popper>
 </template>

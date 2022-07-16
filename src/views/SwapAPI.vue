@@ -1,7 +1,7 @@
 <script setup>
 import Header from '@/components/Header.vue';
-import PeopleTable from '@/components/PeopleTable.vue';
-import LoadingState from '@/components/LoadingState.vue';
+import PeopleTable from '@/components/PeopleTable';
+import LoadingState from '@/components/LoadingState';
 import Footer from '@/components/Footer.vue';
 </script>
 

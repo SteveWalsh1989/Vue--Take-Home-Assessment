@@ -5,6 +5,7 @@ import { extractPlanetId } from '@/utils/helpers';
 import DateCell from '@/components/DateCell';
 import PlainCell from '@/components/PlainCell';
 import PlanetCell from '@/components/PlanetCell';
+import LoadingState from '@/components/LoadingState';
 
 // CONSTANTS / VARIABLES
 const data = await useCurrentSwapAPI();
@@ -42,7 +43,7 @@ function getTableData(row) {
     </thead>
     <tbody>
       <tr v-if="!data.people.data.length">
-        Loading Data...
+        <LoadingState />
       </tr>
       <tr
         v-for="(person, i) in data.people.data"

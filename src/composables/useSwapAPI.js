@@ -1,13 +1,27 @@
 import { provide, inject } from 'vue';
 const RETRIES = 3;
 const SwapAPISymbol = Symbol('SwapAPI');
+const LS_KEY_PEOPLE = 'SWAP_API_PEOPLE';
+const LS_KEY_PLANETS = 'SWAP_API_PLANETS';
+
 let currentSwapAPI;
 
 async function useSWapAPILoader() {
-  const [people, planets] = await Promise.all([
-    useSwapAPI('people'),
-    useSwapAPI('planets'),
-  ]);
+  const people = {
+    data: JSON.parse(localStorage.getItem(LS_KEY_PEOPLE)) || [],
+  };
+  const planets = {
+    data: JSON.parse(localStorage.getItem(LS_KEY_PLANETS)) || [],
+  };
+
+  if (!people.data.length || !planets.data.length) {
+    const [people, planets] = await Promise.all([
+      useSwapAPI('people'),
+      useSwapAPI('planets'),
+    ]);
+    localStorage.setItem(LS_KEY_PEOPLE, JSON.stringify(people.data));
+    localStorage.setItem(LS_KEY_PLANETS, JSON.stringify(planets.data));
+  }
   return { people, planets };
 }
 

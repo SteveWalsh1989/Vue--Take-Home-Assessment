@@ -15,7 +15,7 @@ const columns = ref([
   { label: 'Mass (Kg)', value: 'mass', sort: null },
   { label: 'Created', value: 'created', sort: null },
   { label: 'Edited', value: 'edited', sort: null },
-  { label: 'Planet', value: 'planet', sort: null },
+  { label: 'Home Planet', value: 'planet', sort: null },
 ]);
 
 // FUNCTIONS

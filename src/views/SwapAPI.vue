@@ -6,7 +6,7 @@ import Footer from '@/components/Footer.vue';
 </script>
 
 <template>
-  <section class="justify-center">
+  <section class="justify-center px-2">
     <Header />
     <Suspense>
       <PeopleTable />

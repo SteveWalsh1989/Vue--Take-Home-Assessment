@@ -15,23 +15,29 @@ export function extractPlanetId(url) {
   return id;
 }
 
-// Format population to be in billions/millions/thousands
+// Format number to be in billions/millions/thousands
 // rounds down to the nearest tier
-// @Param {number} num - the population of the planet
-// @Return {string} - the formatted population
-export function formatPopulation(num) {
-  if (num > 1000000000) {
-    return Math.round(num / 1000000000).toFixed(0) + 'B';
-  } else if (num > 1000000) {
-    return Math.round(num / 1000000).toFixed(0) + 'M';
+// @Param {number} num - the number to format
+// @Return {string} - the formatted string
+export function formatNumberShorthand(num) {
+  const trillion = 1000000000000;
+  const billion = 1000000000;
+  const million = 1000000;
+  const thousand = 1000;
+  if (num >= trillion) {
+    return Math.round(num / trillion).toFixed(0) + 'T';
+  } else if (num >= billion) {
+    return Math.round(num / billion).toFixed(0) + 'B';
+  } else if (num >= million) {
+    return Math.round(num / million).toFixed(0) + 'M';
   } else {
-    return Math.round(num / 1000).toFixed(0) + 'K';
+    return Math.round(num / thousand).toFixed(0) + 'K';
   }
 }
 
-// Format the diameter to be in km/miles
-// @Param {number} num - the diameter of the planet
-// @Return {string} - the formatted diameter
-export function formatDiameter(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+// Format a number to be comma separated by thousands
+// @Param {number} num - the number to be formatted
+// @Return {string} - the final formatted number as a string
+export function formatNumberThousands(number) {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }

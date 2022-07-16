@@ -1,6 +1,10 @@
 <script setup>
 import { defineProps } from 'vue';
-import { capitalize, formatDiameter, formatPopulation } from '@/utils/helpers';
+import {
+  capitalize,
+  formatNumberThousands,
+  formatNumberShorthand,
+} from '@/utils/helpers';
 
 // CONSTANTS / VARIABLES
 const props = defineProps({
@@ -8,21 +12,29 @@ const props = defineProps({
 });
 
 const formattedPlanet = {
-  name: props.planet ? props.planet.name : 'Unknown',
+  name: props.planet ? props.planet.name : 'unknown',
   population: props.planet
     ? formatPopulation(parseInt(props.planet.population))
-    : 'Unknown',
-  climate: props.planet ? props.planet.climate : 'Unknown',
-  diameter: props.planet
-    ? `${formatDiameter(props.planet.diameter)}km`
-    : 'Unknown',
+    : 'unknown',
+  climate: props.planet ? props.planet.climate : 'unknown',
+  diameter:
+    props.planet & props.planet?.diameter
+      ? `${formatNumberThousands(props.planet.diameter)}km`
+      : 'unknown',
 };
+
+function formatPopulation(number) {
+  if (number) {
+    return formatNumberShorthand(parseInt(props.planet.population));
+  }
+  return 'unknown';
+}
 </script>
 
 <template>
   <Popper>
     <button>{{ formattedPlanet.name }}</button>
-    <template #content v-if="formattedPlanet.name !== 'Unknown'">
+    <template #content v-if="formattedPlanet.name !== 'unknown'">
       <table>
         <tbody>
           <tr

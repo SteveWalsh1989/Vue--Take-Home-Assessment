@@ -1,9 +1,12 @@
 <script setup>
 import { defineProps } from 'vue';
 import { capitalize, formatPopulation } from '@/utils/helpers';
+
+// CONSTANTS / VARIABLES
 const props = defineProps({
   planet: { type: Object, default: () => null },
 });
+
 const formattedPlanet = {
   name: props.planet ? props.planet.name : 'Unknown',
   population: props.planet

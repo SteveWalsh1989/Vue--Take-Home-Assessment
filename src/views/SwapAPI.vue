@@ -1,15 +1,18 @@
 <script setup>
 import Header from '@/components/Header.vue';
 import PeopleTable from '@/components/PeopleTable.vue';
+import LoadingState from '@/components/LoadingState.vue';
 import Footer from '@/components/Footer.vue';
 </script>
 
 <template>
-  <section>
+  <section class="justify-center">
     <Header />
     <Suspense>
       <PeopleTable />
-      <template #fallback> Loading... </template>
+      <template #fallback>
+        <LoadingState />
+      </template>
     </Suspense>
     <Footer />
   </section>

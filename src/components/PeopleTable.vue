@@ -6,6 +6,7 @@ import DateCell from '@/components/DateCell';
 import PlainCell from '@/components/PlainCell';
 import PlanetCell from '@/components/PlanetCell';
 import LoadingState from '@/components/LoadingState';
+import EmptyState from '@/components/EmptyState';
 import { LS_KEY_PEOPLE } from '@/utils/constants';
 import { search } from '@/composables/useSearch';
 
@@ -14,6 +15,7 @@ const data = await useCurrentSwapAPI();
 const people = ref(data.people.data);
 const planets = ref(data.planets.data);
 let hover = ref(false);
+const showEmptyState = ref(false);
 const searchTerm = computed(() => search.term);
 const columns = ref([
   { label: 'Name', value: 'name', sort: null },
@@ -41,6 +43,7 @@ function getTableData(row) {
 watch(searchTerm, (newSearch) => {
   if (newSearch === '') {
     people.value = originalData;
+    showEmptyState.value = false;
   } else {
     people.value = people.value.filter((el) => {
       return Object.entries(el).some(
@@ -49,6 +52,7 @@ watch(searchTerm, (newSearch) => {
           String(value).toLowerCase().includes(newSearch.toLowerCase()),
       );
     });
+    showEmptyState.value = people.value.length > 0 ? false : true;
   }
 });
 
@@ -98,60 +102,61 @@ function onSort(column) {
 </script>
 
 <template>
-  <table class="w-full">
-    <thead class="border-b-2 border-black">
-      <tr>
-        <th
-          v-for="th in columns"
-          :key="th.value"
-          class="text-left"
-          @click="onSort(th)"
-        >
-          <div
-            class="min-w-50 flex items-center"
-            @mouseover="hover = true"
-            @mouseleave="hover = false"
-            :class="{
-              'cursor-pointer': hover,
-            }"
+  <section>
+    <EmptyState v-if="showEmptyState" />
+    <LoadingState v-else-if="!people.length" />
+    <table class="w-full" v-else>
+      <thead class="border-b-2 border-black">
+        <tr>
+          <th
+            v-for="th in columns"
+            :key="th.value"
+            class="text-left"
+            @click="onSort(th)"
           >
-            <span>{{ th.label }}</span>
-            <img
-              v-if="th.value !== 'planet' && (hover || th.sort !== null)"
-              :src="require('@/assets/icons/arrow.png')"
-              alt="Sort Column Icon"
-              class="w-5 h-5 pl-1"
+            <div
+              class="min-w-50 flex items-center"
+              @mouseover="hover = true"
+              @mouseleave="hover = false"
               :class="{
-                'rotate-icon': th.sort === 'desc',
+                'cursor-pointer': hover,
               }"
+            >
+              <span>{{ th.label }}</span>
+              <img
+                v-if="th.value !== 'planet' && (hover || th.sort !== null)"
+                :src="require('@/assets/icons/arrow.png')"
+                alt="Sort Column Icon"
+                class="w-5 h-5 pl-1"
+                :class="{
+                  'rotate-icon': th.sort === 'desc',
+                }"
+              />
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="(person, i) in people"
+          :key="i"
+          class="border-b-2 border-slate-400 my-4 h-12 row"
+        >
+          <td v-for="(td, i) in getTableData(person)" :key="td.value + i">
+            <DateCell
+              v-if="td.column === 'created' || td.column === 'edited'"
+              :date="td.value"
             />
-          </div>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-if="!people.length">
-        <LoadingState />
-      </tr>
-      <tr
-        v-for="(person, i) in people"
-        :key="i"
-        class="border-b-2 border-slate-400 my-4 h-12 row"
-      >
-        <td v-for="(td, i) in getTableData(person)" :key="td.value + i">
-          <DateCell
-            v-if="td.column === 'created' || td.column === 'edited'"
-            :date="td.value"
-          />
-          <PlanetCell
-            v-else-if="td.column === 'planet'"
-            :planet="planets[extractPlanetId(person.homeworld)]"
-          />
-          <PlainCell v-else :text="td.value" />
-        </td>
-      </tr>
-    </tbody>
-  </table>
+            <PlanetCell
+              v-else-if="td.column === 'planet'"
+              :planet="planets[extractPlanetId(person.homeworld)]"
+            />
+            <PlainCell v-else :text="td.value" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
 </template>
 
 <style scoped>

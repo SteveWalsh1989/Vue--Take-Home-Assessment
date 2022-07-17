@@ -9,6 +9,8 @@ import LoadingState from '@/components/LoadingState';
 
 // CONSTANTS / VARIABLES
 const data = await useCurrentSwapAPI();
+const people = ref(data.people.data);
+const planets = ref(data.planets.data);
 
 const columns = ref([
   { label: 'Name', value: 'name', sort: null },
@@ -30,23 +32,66 @@ function getTableData(row) {
     return res;
   });
 }
+
+function onSort(column) {
+  const collator = new Intl.Collator('en', { numeric: true });
+  const columnName = column.value;
+  const currentSort = column.sort;
+  let newSort = null;
+  // Get next sort direction
+  switch (currentSort) {
+    case 'asc':
+      newSort = 'desc';
+      break;
+    case 'desc':
+      newSort = 'asc';
+      break;
+    case null:
+      newSort = 'asc';
+      break;
+  }
+
+  // update column sort
+  columns.value.forEach((col) => {
+    if (col.value === columnName) {
+      col.sort = newSort;
+    } else {
+      col.sort = null;
+    }
+  });
+  // sort people
+  people.value = people.value.sort((a, b) => {
+    switch (newSort) {
+      case 'desc':
+        return collator.compare(b[columnName], a[columnName]);
+      case 'asc':
+      default:
+        return collator.compare(a[columnName], b[columnName]);
+    }
+  });
+}
 </script>
 
 <template>
   <table class="w-full">
     <thead class="border-b-2 border-black">
       <tr>
-        <th v-for="th in columns" :key="th.value" class="text-left">
+        <th
+          v-for="th in columns"
+          :key="th.value"
+          class="text-left"
+          @click="onSort(th)"
+        >
           <span>{{ th.label }}</span>
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr v-if="!data.people.data.length">
+      <tr v-if="!people.length">
         <LoadingState />
       </tr>
       <tr
-        v-for="(person, i) in data.people.data"
+        v-for="(person, i) in people"
         :key="i"
         class="border-b-2 border-slate-400 my-4 h-12 row"
       >
@@ -57,7 +102,7 @@ function getTableData(row) {
           />
           <PlanetCell
             v-else-if="td.column === 'planet'"
-            :planet="data.planets.data[extractPlanetId(person.homeworld)]"
+            :planet="planets[extractPlanetId(person.homeworld)]"
           />
           <PlainCell v-else :text="td.value" />
         </td>

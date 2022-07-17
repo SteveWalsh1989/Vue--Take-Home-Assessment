@@ -6,12 +6,13 @@ import DateCell from '@/components/DateCell';
 import PlainCell from '@/components/PlainCell';
 import PlanetCell from '@/components/PlanetCell';
 import LoadingState from '@/components/LoadingState';
+import { LS_KEY_PEOPLE } from '@/utils/constants';
 
 // CONSTANTS / VARIABLES
 const data = await useCurrentSwapAPI();
 const people = ref(data.people.data);
 const planets = ref(data.planets.data);
-
+let hover = ref(false);
 const columns = ref([
   { label: 'Name', value: 'name', sort: null },
   { label: 'Height (cm)', value: 'height', sort: null },
@@ -34,6 +35,10 @@ function getTableData(row) {
 }
 
 function onSort(column) {
+  console.log('🍕 > onSort > column', column);
+  if (column.value !== 'name') {
+    return;
+  }
   const collator = new Intl.Collator('en', { numeric: true });
   const columnName = column.value;
   const currentSort = column.sort;
@@ -69,6 +74,9 @@ function onSort(column) {
         return collator.compare(a[columnName], b[columnName]);
     }
   });
+
+  // Update LS storage data
+  localStorage.setItem(LS_KEY_PEOPLE, JSON.stringify(people.value));
 }
 </script>
 
@@ -82,7 +90,22 @@ function onSort(column) {
           class="text-left"
           @click="onSort(th)"
         >
-          <span>{{ th.label }}</span>
+          <div
+            class="min-w-50 flex items-center"
+            @mouseover="hover = true"
+            @mouseleave="hover = false"
+          >
+            <span>{{ th.label }}</span>
+            <img
+              v-if="th.value === 'name' && (hover || th.sort !== null)"
+              :src="require('@/assets/icons/arrow.png')"
+              alt="Sort Column Icon"
+              class="w-5 h-5 pl-1"
+              :class="{
+                'rotate-icon': th.sort === 'desc',
+              }"
+            />
+          </div>
         </th>
       </tr>
     </thead>
@@ -119,5 +142,9 @@ function onSort(column) {
   background-color: #f1f5f9;
   box-shadow: 0 6px 30px -6px rgba(0, 0, 0, 0.25);
   color: black;
+}
+
+.rotate-icon {
+  transform: rotate(180deg);
 }
 </style>

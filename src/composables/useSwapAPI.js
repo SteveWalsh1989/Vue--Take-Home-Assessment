@@ -1,8 +1,10 @@
 import { provide, inject } from 'vue';
+import {
+  LS_KEY_PLANETS,
+  LS_KEY_PEOPLE,
+  SwapAPISymbol,
+} from '@/utils/constants';
 const RETRIES = 3;
-const SwapAPISymbol = Symbol('SwapAPI');
-const LS_KEY_PEOPLE = 'SWAP_API_PEOPLE';
-const LS_KEY_PLANETS = 'SWAP_API_PLANETS';
 
 let currentSwapAPI;
 

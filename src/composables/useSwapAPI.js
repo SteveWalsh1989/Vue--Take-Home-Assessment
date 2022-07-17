@@ -5,7 +5,6 @@ import {
   SwapAPISymbol,
 } from '@/utils/constants';
 const RETRIES = 3;
-
 let currentSwapAPI;
 
 async function useSWapAPILoader() {

@@ -1,5 +1,5 @@
 <script setup>
-import Searchbar from '@/components/Searchbar';
+import SearchBar from '@/components/SearchBar';
 // CONSTANTS / VARIABLES
 const headerIcon = require('@/assets/images/rebel-alliance.svg');
 </script>
@@ -8,7 +8,7 @@ const headerIcon = require('@/assets/images/rebel-alliance.svg');
   <header class="flex w-full my-2 py-12 items-center header">
     <object :data="headerIcon" width="40" height="40" class="mx-4"></object>
     <h1 class="text-4xl">SwapAPI: Star Wars Table Example</h1>
-    <Searchbar class="ml-auto mr-8" />
+    <SearchBar class="ml-auto mr-8" />
   </header>
 </template>
 

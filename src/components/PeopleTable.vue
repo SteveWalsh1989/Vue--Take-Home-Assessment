@@ -7,6 +7,7 @@ import PlainCell from '@/components/PlainCell';
 import PlanetCell from '@/components/PlanetCell';
 import LoadingState from '@/components/LoadingState';
 import { LS_KEY_PEOPLE } from '@/utils/constants';
+import { search } from '@/composables/useSearch';
 
 // CONSTANTS / VARIABLES
 const data = await useCurrentSwapAPI();
@@ -82,6 +83,9 @@ function onSort(column) {
 <template>
   <table class="w-full">
     <thead class="border-b-2 border-black">
+      S:{{
+        search.term
+      }}
       <tr>
         <th
           v-for="th in columns"

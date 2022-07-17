@@ -1,9 +1,13 @@
 <script setup>
-import { ref } from 'vue';
-const search = ref(null);
+import { watch } from 'vue';
+import { search } from '@/composables/useSearch';
+console.log('🍕 > search', search.value);
 
+watch(search.value, (newVal) => {
+  search.updateTerm(newVal);
+});
 function clear() {
-  search.value = null;
+  search.updateTerm('');
 }
 </script>
 
@@ -18,9 +22,13 @@ function clear() {
       type="text"
       class="w-full h-8 px-2 bg-transparent text-white border-b-2"
       placeholder="Search"
-      v-model="search"
+      v-model="search.term"
     />
-    <button v-if="search && search.length > 0" @click="clear" type="button">
+    <button
+      v-if="search.term && search.term.length > 0"
+      @click="clear"
+      type="button"
+    >
       <img
         :src="require('@/assets/icons/close.png')"
         alt="Clear Search field"

@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useCurrentSwapAPI } from '@/composables/useSwapAPI';
 import { extractPlanetId } from '@/utils/helpers';
 import DateCell from '@/components/DateCell';
@@ -14,6 +14,7 @@ const data = await useCurrentSwapAPI();
 const people = ref(data.people.data);
 const planets = ref(data.planets.data);
 let hover = ref(false);
+const searchTerm = computed(() => search.term);
 const columns = ref([
   { label: 'Name', value: 'name', sort: null },
   { label: 'Height (cm)', value: 'height', sort: null },
@@ -22,6 +23,8 @@ const columns = ref([
   { label: 'Edited', value: 'edited', sort: null },
   { label: 'Home Planet', value: 'planet', sort: null },
 ]);
+const colsValues = columns.value.map((el) => el.value);
+const originalData = people.value;
 
 // FUNCTIONS
 function getTableData(row) {
@@ -34,6 +37,25 @@ function getTableData(row) {
     return res;
   });
 }
+
+console.log('🍕 > table > searchTerm ', searchTerm.value);
+
+watch(searchTerm, (newSearch) => {
+  console.log('🍕 > watch > newSearch', newSearch);
+  if (newSearch === '') {
+    people.value = originalData;
+  } else {
+    console.log('🍕 > filtering time');
+
+    people.value = people.value.filter((el) => {
+      return Object.entries(el).some(
+        ([key, value]) =>
+          colsValues.includes(key) &&
+          String(value).toLowerCase().includes(newSearch.toLowerCase()),
+      );
+    });
+  }
+});
 
 function onSort(column) {
   if (column.value === 'planet') {
@@ -83,9 +105,6 @@ function onSort(column) {
 <template>
   <table class="w-full">
     <thead class="border-b-2 border-black">
-      S:{{
-        search.term
-      }}
       <tr>
         <th
           v-for="th in columns"

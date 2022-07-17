@@ -1,7 +1,6 @@
 <script setup>
 import { watch } from 'vue';
 import { search } from '@/composables/useSearch';
-console.log('🍕 > search', search.value);
 
 watch(search.value, (newVal) => {
   search.updateTerm(newVal);

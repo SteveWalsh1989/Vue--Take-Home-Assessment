@@ -1,7 +1,5 @@
 # tw-take-home--swap-api
 
-This is a quick example of a front-end focused take home assessment to get some practice in.
-
 ## FrontEnd focused take home assessment to practice some Vue 3
 
 Your mission, should you choose to accept it, is to create a one-page application with a list of people and the details about their related home planet.

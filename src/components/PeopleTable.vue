@@ -35,8 +35,7 @@ function getTableData(row) {
 }
 
 function onSort(column) {
-  console.log('🍕 > onSort > column', column);
-  if (column.value !== 'name') {
+  if (column.value === 'planet') {
     return;
   }
   const collator = new Intl.Collator('en', { numeric: true });
@@ -94,10 +93,13 @@ function onSort(column) {
             class="min-w-50 flex items-center"
             @mouseover="hover = true"
             @mouseleave="hover = false"
+            :class="{
+              'cursor-pointer': hover,
+            }"
           >
             <span>{{ th.label }}</span>
             <img
-              v-if="th.value === 'name' && (hover || th.sort !== null)"
+              v-if="th.value !== 'planet' && (hover || th.sort !== null)"
               :src="require('@/assets/icons/arrow.png')"
               alt="Sort Column Icon"
               class="w-5 h-5 pl-1"

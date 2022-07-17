@@ -24,7 +24,7 @@ async function useSWapAPILoader() {
     localStorage.setItem(LS_KEY_PLANETS, JSON.stringify(planets));
   }
 
-  return { people, planets };
+  return { people: people.data, planets: planets.data };
 }
 
 async function useSwapAPI(slug) {

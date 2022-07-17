@@ -20,9 +20,10 @@ async function useSWapAPILoader() {
       useSwapAPI('people'),
       useSwapAPI('planets'),
     ]);
-    localStorage.setItem(LS_KEY_PEOPLE, JSON.stringify(people.data));
-    localStorage.setItem(LS_KEY_PLANETS, JSON.stringify(planets.data));
+    localStorage.setItem(LS_KEY_PEOPLE, JSON.stringify(people));
+    localStorage.setItem(LS_KEY_PLANETS, JSON.stringify(planets));
   }
+
   return { people, planets };
 }
 

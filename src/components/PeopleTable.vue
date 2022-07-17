@@ -38,15 +38,10 @@ function getTableData(row) {
   });
 }
 
-console.log('🍕 > table > searchTerm ', searchTerm.value);
-
 watch(searchTerm, (newSearch) => {
-  console.log('🍕 > watch > newSearch', newSearch);
   if (newSearch === '') {
     people.value = originalData;
   } else {
-    console.log('🍕 > filtering time');
-
     people.value = people.value.filter((el) => {
       return Object.entries(el).some(
         ([key, value]) =>

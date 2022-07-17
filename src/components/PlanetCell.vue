@@ -18,7 +18,7 @@ const formattedPlanet = {
     : 'unknown',
   climate: props.planet ? props.planet.climate : 'unknown',
   diameter:
-    props.planet & props.planet?.diameter
+    props.planet && props.planet?.diameter !== 'unknown'
       ? `${formatNumberThousands(props.planet.diameter)}km`
       : 'unknown',
 };

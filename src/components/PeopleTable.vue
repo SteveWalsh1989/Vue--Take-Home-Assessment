@@ -1,7 +1,6 @@
 <script setup>
 import { computed, ref, watch } from 'vue';
 import { useCurrentSwapAPI } from '@/composables/useSwapAPI';
-import { extractPlanetId } from '@/utils/helpers';
 import DateCell from '@/components/DateCell';
 import PlainCell from '@/components/PlainCell';
 import PlanetCell from '@/components/PlanetCell';
@@ -13,7 +12,6 @@ import { search } from '@/composables/useSearch';
 // CONSTANTS / VARIABLES
 const data = await useCurrentSwapAPI();
 const people = ref(data.people.data);
-const planets = ref(data.planets.data);
 let hover = ref(false);
 const showEmptyState = ref(false);
 const searchTerm = computed(() => search.term);
@@ -57,9 +55,6 @@ watch(searchTerm, (newSearch) => {
 });
 
 function onSort(column) {
-  if (column.value === 'planet') {
-    return;
-  }
   const collator = new Intl.Collator('en', { numeric: true });
   const columnName = column.value;
   const currentSort = column.sort;
@@ -104,7 +99,7 @@ function onSort(column) {
 <template>
   <section>
     <EmptyState v-if="showEmptyState" />
-    <LoadingState v-else-if="!people.length" />
+    <LoadingState v-else-if="!people && !people.length" />
     <table class="w-full" v-else>
       <thead class="border-b-2 border-black">
         <tr>
@@ -124,7 +119,7 @@ function onSort(column) {
             >
               <span>{{ th.label }}</span>
               <img
-                v-if="th.value !== 'planet' && (hover || th.sort !== null)"
+                v-if="hover || th.sort !== null"
                 :src="require('@/assets/icons/arrow.png')"
                 alt="Sort Column Icon"
                 class="w-5 h-5 pl-1"
@@ -149,7 +144,7 @@ function onSort(column) {
             />
             <PlanetCell
               v-else-if="td.column === 'planet'"
-              :planet="planets[extractPlanetId(person.homeworld)]"
+              :planet="person.homeworld"
             />
             <PlainCell v-else :text="td.value" />
           </td>

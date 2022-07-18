@@ -1,9 +1,6 @@
 import { provide, inject } from 'vue';
-import {
-  LS_KEY_PLANETS,
-  LS_KEY_PEOPLE,
-  SwapAPISymbol,
-} from '@/utils/constants';
+import { LS_KEY_PEOPLE, SwapAPISymbol } from '@/utils/constants';
+import { extractPlanetId } from '@/utils/helpers';
 const RETRIES = 3;
 let currentSwapAPI;
 
@@ -11,20 +8,30 @@ async function useSWapAPILoader() {
   const people = {
     data: JSON.parse(localStorage.getItem(LS_KEY_PEOPLE)) || [],
   };
-  const planets = {
-    data: JSON.parse(localStorage.getItem(LS_KEY_PLANETS)) || [],
-  };
 
-  if (!people.data.length || !planets.data.length) {
+  if (!people.data.length) {
     const [people, planets] = await Promise.all([
       useSwapAPI('people'),
       useSwapAPI('planets'),
     ]);
+
+    // map planets  using people homeworld
+    people.data.forEach((person, index) => {
+      if (person.homeworld) {
+        const planetId = extractPlanetId(person.homeworld);
+        people.data[index] = {
+          ...people.data[index],
+          planet: planets.data[planetId]
+            ? planets.data[planetId].name
+            : 'unknown',
+          homeworld: planets.data[planetId],
+        };
+      }
+    });
     localStorage.setItem(LS_KEY_PEOPLE, JSON.stringify(people));
-    localStorage.setItem(LS_KEY_PLANETS, JSON.stringify(planets));
   }
 
-  return { people: people.data, planets: planets.data };
+  return { people: people.data };
 }
 
 async function useSwapAPI(slug) {

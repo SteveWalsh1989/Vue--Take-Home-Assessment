@@ -11,7 +11,7 @@ import { search } from '@/composables/useSearch';
 
 // CONSTANTS / VARIABLES
 const data = await useCurrentSwapAPI();
-const people = ref(data.people.data);
+const people = ref(data.people);
 let hover = ref(false);
 const showEmptyState = ref(false);
 const searchTerm = computed(() => search.term);
@@ -99,7 +99,7 @@ function onSort(column) {
 <template>
   <section>
     <EmptyState v-if="showEmptyState" />
-    <LoadingState v-else-if="!people && !people.length" />
+    <LoadingState v-else-if="!people" />
     <table class="w-full" v-else>
       <thead class="border-b-2 border-black">
         <tr>

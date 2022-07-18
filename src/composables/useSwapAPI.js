@@ -5,11 +5,9 @@ const RETRIES = 3;
 let currentSwapAPI;
 
 async function useSWapAPILoader() {
-  const people = {
-    data: JSON.parse(localStorage.getItem(LS_KEY_PEOPLE)) || [],
-  };
+  const people = JSON.parse(localStorage.getItem(LS_KEY_PEOPLE)) || [];
 
-  if (!people.data.length) {
+  if (!people.length) {
     const [people, planets] = await Promise.all([
       useSwapAPI('people'),
       useSwapAPI('planets'),

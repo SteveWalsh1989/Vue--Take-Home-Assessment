@@ -5,12 +5,14 @@ import {
   formatNumberThousands,
   formatNumberShorthand,
 } from '@/utils/helpers';
+import SearchHighlight from '@/components/SearchHighlight';
+import { search } from '@/composables/useSearch';
 
 // CONSTANTS / VARIABLES
 const props = defineProps({
   planet: { type: Object, default: () => null },
 });
-
+console.log('search.term', search);
 const formattedPlanet = {
   name: props.planet ? props.planet.name : 'unknown',
   population: props.planet
@@ -33,7 +35,9 @@ function formatPopulation(number) {
 
 <template>
   <Popper>
-    <button>{{ formattedPlanet.name }}</button>
+    <button>
+      <SearchHighlight :search="search.term" :text="formattedPlanet.name" />
+    </button>
     <template #content v-if="formattedPlanet.name !== 'unknown'">
       <table>
         <tbody>

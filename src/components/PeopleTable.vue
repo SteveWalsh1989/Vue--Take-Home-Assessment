@@ -110,7 +110,7 @@ function onSort(column) {
             @click="onSort(th)"
           >
             <div
-              class="min-w-50 flex items-center"
+              class="flex items-center column"
               @mouseover="hover = true"
               @mouseleave="hover = false"
               :class="{
@@ -155,6 +155,9 @@ function onSort(column) {
 </template>
 
 <style scoped>
+.column {
+  min-width: 150px;
+}
 .row {
   color: #1e293b;
 }

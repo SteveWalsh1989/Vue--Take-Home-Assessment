@@ -26,6 +26,15 @@ Population
 
 The user should be able to sort the table by each column. The user should also be able to filter by searching the person’s name.
 
+## Project Screenshots
+
+
+### filtering and sorting results 
+![Screenshot 2022-07-17 at 23 04 37](https://user-images.githubusercontent.com/13380603/179426511-a37d54d1-f5f8-4e27-bc37-257f232885c0.png)
+
+### Empty state 
+![Screenshot 2022-07-17 at 23 03 39](https://user-images.githubusercontent.com/13380603/179426536-3c2bac17-2174-4ee4-976f-03e34fcff493.png)
+
 ## Project setup
 
 ```

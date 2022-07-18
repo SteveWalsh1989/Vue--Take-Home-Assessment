@@ -32,7 +32,7 @@ The user should be able to sort the table by each column. The user should also b
 
 
 ### filtering and sorting results 
-![Screenshot 2022-07-17 at 23 04 37](https://user-images.githubusercontent.com/13380603/179426511-a37d54d1-f5f8-4e27-bc37-257f232885c0.png)
+![Screenshot 2022-07-18 at 21 44 31](https://user-images.githubusercontent.com/13380603/179614115-8d79cea7-872d-43a0-b09e-92e664c4de9a.png)
 
 ### Empty state 
 ![Screenshot 2022-07-17 at 23 03 39](https://user-images.githubusercontent.com/13380603/179426536-3c2bac17-2174-4ee4-976f-03e34fcff493.png)

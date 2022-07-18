@@ -1,6 +1,7 @@
 <script setup>
 import { defineProps } from 'vue';
 import SearchableText from '@/components/SearchableText';
+// Cell to display plain text that is searchable
 
 const props = defineProps({
   text: { type: String, default: '' },

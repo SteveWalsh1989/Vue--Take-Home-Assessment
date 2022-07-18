@@ -6,6 +6,7 @@ import {
   formatNumberShorthand,
 } from '@/utils/helpers';
 import SearchableText from '@/components/SearchableText';
+// Displays users homeworld name and on click, displays the planet details
 
 // CONSTANTS / VARIABLES
 const props = defineProps({

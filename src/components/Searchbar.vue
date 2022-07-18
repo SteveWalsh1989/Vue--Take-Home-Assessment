@@ -1,6 +1,7 @@
 <script setup>
 import { watch } from 'vue';
 import { search } from '@/composables/useSearch';
+// searchbar used to filter table results
 
 watch(search.value, (newVal) => {
   search.updateTerm(newVal);
@@ -19,7 +20,7 @@ function clear() {
     />
     <input
       type="text"
-      class="w-full h-8 px-2 bg-transparent text-white border-b-2"
+      class="w-full h-8 px-2 bg-transparent text-white border-b-2 focus:outline-none"
       placeholder="Search"
       v-model="search.term"
     />

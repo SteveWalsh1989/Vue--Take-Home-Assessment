@@ -1,6 +1,8 @@
 <script setup>
 import { defineProps } from 'vue';
 import { DateTime } from 'luxon';
+// Cell to format and displays dates
+
 const props = defineProps({
   date: { type: String, required: true },
 });

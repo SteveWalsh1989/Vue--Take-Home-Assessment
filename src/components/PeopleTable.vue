@@ -8,6 +8,7 @@ import LoadingState from '@/components/LoadingState';
 import EmptyState from '@/components/EmptyState';
 import { LS_KEY_PEOPLE } from '@/utils/constants';
 import { search } from '@/composables/useSearch';
+// Table displays list of people their details
 
 // CONSTANTS / VARIABLES
 const data = await useCurrentSwapAPI();

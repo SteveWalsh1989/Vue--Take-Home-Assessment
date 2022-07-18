@@ -26,10 +26,10 @@ async function useSWapAPILoader() {
         };
       }
     });
-    localStorage.setItem(LS_KEY_PEOPLE, JSON.stringify(people));
+    localStorage.setItem(LS_KEY_PEOPLE, JSON.stringify(people.data));
   }
 
-  return { people: people.data };
+  return { people: people };
 }
 
 async function useSwapAPI(slug) {

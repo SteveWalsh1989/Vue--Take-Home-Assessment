@@ -146,7 +146,7 @@ function onSort(column) {
               v-else-if="td.column === 'planet'"
               :planet="person.homeworld"
             />
-            <PlainCell v-else :text="td.value" />
+            <PlainCell v-else :text="td.value" :search="searchTerm" />
           </td>
         </tr>
       </tbody>

@@ -1,7 +1,6 @@
 <script setup>
 import { defineProps } from 'vue';
-import SearchHighlight from '@/components/SearchHighlight';
-import { search } from '@/composables/useSearch';
+import SearchableText from '@/components/SearchableText';
 
 const props = defineProps({
   text: { type: String, default: '' },
@@ -11,5 +10,5 @@ const title = props.text || 'Unknown';
 </script>
 
 <template>
-  <SearchHighlight :search="search.term" :text="title" />
+  <SearchableText :text="title" />
 </template>

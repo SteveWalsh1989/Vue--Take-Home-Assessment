@@ -44,6 +44,7 @@ watch(searchTerm, (newSearch) => {
     people.value = originalData;
     showEmptyState.value = false;
   } else {
+    people.value = originalData;
     people.value = people.value.filter((el) => {
       return Object.entries(el).some(
         ([key, value]) =>

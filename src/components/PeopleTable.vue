@@ -2,12 +2,13 @@
 import { computed, ref, watch } from 'vue';
 import { useCurrentSwapAPI } from '@/composables/useSwapAPI';
 import DateCell from '@/components/DateCell';
-import PlainCell from '@/components/PlainCell';
 import PlanetCell from '@/components/PlanetCell';
 import LoadingState from '@/components/LoadingState';
 import EmptyState from '@/components/EmptyState';
 import { LS_KEY_PEOPLE } from '@/utils/constants';
 import { search } from '@/composables/useSearch';
+import SearchableText from '@/components/SearchableText';
+
 // Table displays list of people their details
 
 // CONSTANTS / VARIABLES
@@ -148,7 +149,7 @@ function onSort(column) {
               v-else-if="td.column === 'planet'"
               :planet="person.homeworld"
             />
-            <PlainCell v-else :text="td.value" />
+            <SearchableText v-else :text="td.value" />
           </td>
         </tr>
       </tbody>

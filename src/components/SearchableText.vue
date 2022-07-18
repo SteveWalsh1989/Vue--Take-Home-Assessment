@@ -8,9 +8,11 @@ const props = defineProps({
   text: { type: String, default: '' },
 });
 
+const title = props.text || 'Unknown';
+
 const vnode = computed(() =>
   h('div', {
-    innerHTML: props.text.replace(
+    innerHTML: title.replace(
       new RegExp(search.term, 'ig'),
       `<i style="background-color: #cbd5e1;">$&</i>`,
     ),

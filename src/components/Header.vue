@@ -1,5 +1,5 @@
 <script setup>
-import SearchBar from '@/components/SearchBar';
+import SearchBar from '@/components/Searchbar';
 // CONSTANTS / VARIABLES
 const headerIcon = require('@/assets/images/rebel-alliance.svg');
 </script>

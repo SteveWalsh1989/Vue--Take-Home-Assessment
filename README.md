@@ -1,5 +1,5 @@
 # tw-take-home--swap-api
-This is a quick example of a front-end focused take home assessment to get some practice in.
+This is a quick example of a front-end focused take home assessment.
 
 
 ## FrontEnd focused take home assessment to practice some Vue 3

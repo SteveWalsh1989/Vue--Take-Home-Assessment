@@ -64,3 +64,9 @@ npm run lint
 ### Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+If you get an error
+` error:0308010C:digital envelope routines::unsupported`
+
+run `export NODE_OPTIONS=--openssl-legacy-provider` 

@@ -5,7 +5,7 @@ export function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-// Extracts the id from the homeword of person returned from the API
+// Extracts the id from the homeworld of person returned from the API
 // @Param {string} str - the url of the planet from SwapAPI
 // @Return {string} - the id of the planet
 export function extractPlanetId(url) {

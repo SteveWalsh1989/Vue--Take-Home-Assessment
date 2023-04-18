@@ -12,7 +12,7 @@ function clear() {
 </script>
 
 <template>
-  <div class="flex items-center w-60">
+  <div class="flex items-center w-80">
     <img
       :src="require('@/assets/icons/search.png')"
       alt="Search Bar Icon"
@@ -21,7 +21,7 @@ function clear() {
     <input
       type="text"
       class="w-full h-8 px-2 bg-transparent text-white border-b-2 focus:outline-none"
-      placeholder="Search"
+      placeholder="Search name, height, mass or planet"
       v-model="search.term"
     />
     <button

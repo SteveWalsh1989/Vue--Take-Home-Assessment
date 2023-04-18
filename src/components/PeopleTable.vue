@@ -104,7 +104,7 @@ function onSort(column) {
     <EmptyState v-if="showEmptyState" />
     <LoadingState v-else-if="!people" />
     <table class="w-full" v-else>
-      <thead class="border-b-2 border-black">
+      <thead class="sticky top-0 z-10 bg-white">
         <tr>
           <th
             v-for="th in columns"

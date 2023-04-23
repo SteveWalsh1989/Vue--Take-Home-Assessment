@@ -100,10 +100,10 @@ function onSort(column) {
 </script>
 
 <template>
-  <section>
+  <section class="h-full">
     <EmptyState v-if="showEmptyState" />
     <LoadingState v-else-if="!people" />
-    <table class="w-full" v-else>
+    <table class="table-fixed w-full overflow-y-auto" v-else>
       <thead class="sticky top-0 z-10 bg-white">
         <tr>
           <th

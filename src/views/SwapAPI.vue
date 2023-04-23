@@ -6,14 +6,18 @@ import Footer from '@/components/Footer.vue';
 </script>
 
 <template>
-  <section class="justify-center px-2">
+  <section class="flex flex-col h-screen m-0">
     <Header />
     <Suspense>
-      <PeopleTable />
+      <main class="flex-1 overflow-y-auto">
+        <div class="px-2">
+          <PeopleTable class="w-full bg-white rounded-lg overflow-hidden" />
+        </div>
+      </main>
       <template #fallback>
         <LoadingState />
       </template>
     </Suspense>
-    <Footer />
+    <Footer class="bg-gray-200 py-4" />
   </section>
 </template>

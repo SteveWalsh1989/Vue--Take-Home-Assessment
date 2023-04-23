@@ -9,10 +9,8 @@ import Footer from '@/components/Footer.vue';
   <section class="flex flex-col h-screen m-0">
     <Header />
     <Suspense>
-      <main class="flex-1 overflow-y-auto">
-        <div class="px-2">
-          <PeopleTable class="w-full bg-white rounded-lg overflow-hidden" />
-        </div>
+      <main class="flex-1 px-2">
+        <PeopleTable class="w-full bg-white rounded-lg" />
       </main>
       <template #fallback>
         <LoadingState />

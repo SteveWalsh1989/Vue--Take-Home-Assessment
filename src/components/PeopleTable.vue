@@ -103,61 +103,69 @@ function onSort(column) {
   <section class="h-full">
     <EmptyState v-if="showEmptyState" />
     <LoadingState v-else-if="!people" />
-    <table class="table-fixed w-full overflow-y-auto" v-else>
-      <thead class="sticky top-0 z-10 bg-white">
-        <tr>
-          <th
-            v-for="th in columns"
-            :key="th.value"
-            class="text-left"
-            @click="onSort(th)"
-          >
-            <div
-              class="flex items-center column"
-              @mouseover="hover = true"
-              @mouseleave="hover = false"
-              :class="{
-                'cursor-pointer': hover,
-              }"
+    <div class="table-container" v-else>
+      <table class="table-fixed w-full overflow-y-auto">
+        <thead class="sticky top-0 z-10 bg-white">
+          <tr>
+            <th
+              v-for="th in columns"
+              :key="th.value"
+              class="text-left"
+              @click="onSort(th)"
             >
-              <span>{{ th.label }}</span>
-              <img
-                v-if="hover || th.sort !== null"
-                :src="require('@/assets/icons/arrow.png')"
-                alt="Sort Column Icon"
-                class="w-5 h-5 pl-1"
+              <div
+                class="flex items-center column"
+                @mouseover="hover = true"
+                @mouseleave="hover = false"
                 :class="{
-                  'rotate-icon': th.sort === 'desc',
+                  'cursor-pointer': hover,
                 }"
+              >
+                <span>{{ th.label }}</span>
+                <img
+                  v-if="hover || th.sort !== null"
+                  :src="require('@/assets/icons/arrow.png')"
+                  alt="Sort Column Icon"
+                  class="w-5 h-5 pl-1"
+                  :class="{
+                    'rotate-icon': th.sort === 'desc',
+                  }"
+                />
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="(person, i) in people"
+            :key="i"
+            class="border-b-2 border-slate-400 my-4 h-12 row"
+          >
+            <td v-for="(td, i) in getTableData(person)" :key="td.value + i">
+              <DateCell
+                v-if="td.column === 'created' || td.column === 'edited'"
+                :date="td.value"
               />
-            </div>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="(person, i) in people"
-          :key="i"
-          class="border-b-2 border-slate-400 my-4 h-12 row"
-        >
-          <td v-for="(td, i) in getTableData(person)" :key="td.value + i">
-            <DateCell
-              v-if="td.column === 'created' || td.column === 'edited'"
-              :date="td.value"
-            />
-            <PlanetCell
-              v-else-if="td.column === 'planet'"
-              :planet="person.homeworld"
-            />
-            <SearchableText v-else :text="td.value" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
+              <PlanetCell
+                v-else-if="td.column === 'planet'"
+                :planet="person.homeworld"
+              />
+              <SearchableText v-else :text="td.value" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 </template>
 
 <style scoped>
+.table-container {
+  overflow-y: auto;
+  max-height: calc(
+    100vh - 200px
+  ); /* Adjust the value to leave space for header and footer */
+}
 .column {
   min-width: 150px;
 }

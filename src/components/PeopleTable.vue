@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, watch } from 'vue';
+import { computed, ref, shallowRef, watch } from 'vue';
 import { useCurrentSwapAPI } from '@/composables/useSwapAPI';
 import DateCell from '@/components/DateCell';
 import PlanetCell from '@/components/PlanetCell';
@@ -14,8 +14,8 @@ import SearchableText from '@/components/SearchableText';
 // CONSTANTS / VARIABLES
 const data = await useCurrentSwapAPI();
 const people = ref(data.people);
-let hover = ref(false);
-const showEmptyState = ref(false);
+let hover = shallowRef(false);
+const showEmptyState = shallowRef(false);
 const searchTerm = computed(() => search.term);
 const columns = ref([
   { label: 'Name', value: 'name', sort: null },
